@@ -19,4 +19,4 @@ def db_to_csv(db_path):
                 print(f"skipped {table}, it was empty")
 
                       
-db_to_csv("slim/fixed_issues.db")
+db_to_csv("slim_gh_grabber/fixed_issues.db")
