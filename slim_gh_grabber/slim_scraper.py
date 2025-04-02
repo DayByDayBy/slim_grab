@@ -4,7 +4,6 @@ import json
 import time
 import os
 import re
-from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 # uses dotenv in local dir
@@ -21,9 +20,9 @@ HEADERS = {
 }
 
 
-def save_progress(processed_repos):
+def save_progress(processed_repo_names):
     with open("progress.json", "w") as f:
-        json.dump(processed_repos, f)
+        json.dump(processed_repo_names, f)
 
 def load_progress():
     try:
@@ -69,10 +68,10 @@ def make_request(url):
             print(f"request failed: {response.status_code} for URL: {url}")
             return None
 
-def get_mit_repos(query="stars:>2000", per_page=100, pages=1000):
+def get_mit_repos(query="stars:>10000", per_page=100, pages=100):
     repos = []
     for page in range(1, pages + 1):
-        url = f"https://api.github.com/search/repositories?q={query}+license:mit&sort=stars&order=desc&per_page={per_page}&page={page}"
+        url = f"https://api.github.com/search/repositories?q={query}+license:mit&sort=forks&order=desc&per_page={per_page}&page={page}"
         response = make_request(url)
         if response:
             data = response.json()
@@ -262,30 +261,6 @@ def check_db():
     
     conn.close()
 
-
-
-
-
-
-# if __name__ == "__main__":
-#     print("starting...")
-    
-#     create_db()
-    
-#     # testing numbers, can max out later
-#     repos = get_mit_repos(query="stars:>500", per_page=100, pages=100)
-#     print(f"\n {len(repos)} MIT repos found")
-    
-#     if repos:
-#         count = populate_db_from_prs(repos)
-#         print(f"\n {count} issue-PR pairs added to .db")
-#     else:
-#         print("no repos found")
-    
-#     # .db contents verification
-#     check_db()
-    
-#     print("\n done! \n")
     
     
     
@@ -295,7 +270,7 @@ if __name__ == "__main__":
     create_db()
     
     # get all repos to process
-    repos = get_mit_repos(query="stars:>2000", per_page=100, pages=1000)
+    repos = get_mit_repos(query="stars:>10000", per_page=100, pages=1000)
     print(f"\n {len(repos)} MIT repos found")
     
     if not repos:
