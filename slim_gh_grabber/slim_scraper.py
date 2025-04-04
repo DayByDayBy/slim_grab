@@ -68,7 +68,8 @@ def make_request(url):
             print(f"request failed: {response.status_code} for URL: {url}")
             return None
 
-def get_mit_repos(query="stars:>10000", per_page=100, pages=100):
+# def get_mit_repos(query="stars:>10000", per_page=100, pages=100):
+def get_mit_repos(query="stars:>10000000", per_page=100, pages=10):
     repos = []
     for page in range(1, pages + 1):
         url = f"https://api.github.com/search/repositories?q={query}+license:mit&sort=forks&order=desc&per_page={per_page}&page={page}"
