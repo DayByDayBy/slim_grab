@@ -256,7 +256,7 @@ if __name__ == "__main__":
     create_db()
     
     # testing numbers, can max out later
-    repos = get_mit_repos(query="stars:>500", per_page=30, pages=1000)
+    repos = get_mit_repos(query="stars:>500000", per_page=30, pages=1000)
     print(f"\n {len(repos)} MIT repos found")
     
     if repos:
