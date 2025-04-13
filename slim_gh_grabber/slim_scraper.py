@@ -59,7 +59,7 @@ def make_request(url):
 
 def get_mit_repos(query="stars:>100", per_page=10, pages=100):
     repos = []
-    for page in range(10, pages + 1):
+    for page in range(6, pages + 1):
         url = f"https://api.github.com/search/repositories?q={query}+license:mit&sort=stars&order=desc&per_page={per_page}&page={page}"
         response = make_request(url)
         if response:
