@@ -57,9 +57,9 @@ def make_request(url):
             print(f"request failed: {response.status_code} for URL: {url}")
             return None
 
-def get_mit_repos(query="stars:>100", per_page=10, pages=100):
+def get_mit_repos(query="stars:>50000", per_page=100, pages=10):
     repos = []
-    for page in range(6, pages + 1):
+    for page in range(1, pages + 1):
         url = f"https://api.github.com/search/repositories?q={query}+license:mit&sort=stars&order=desc&per_page={per_page}&page={page}"
         response = make_request(url)
         if response:
@@ -256,7 +256,7 @@ if __name__ == "__main__":
     create_db()
     
     # testing numbers, can max out later
-    repos = get_mit_repos(query="stars:>500000", per_page=100, pages=50)
+    repos = get_mit_repos(query="stars:>50000", per_page=100, pages=10)
     print(f"\n {len(repos)} MIT repos found")
     
     if repos:
